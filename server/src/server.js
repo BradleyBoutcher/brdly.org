@@ -24,13 +24,6 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'POST, PUT, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control, Pragma');
-
-  // intercept OPTIONS method
-  if (req.method === 'DELETE') {
-    res.sendStatus(204);
-  } else {
-    next();
-  }
 });
 
 // Basic test case

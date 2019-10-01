@@ -1,5 +1,6 @@
 var URL = require('./model');
 var shortener = require('./shortener');
+var moment = require('moment')
 
 /**
  * @description Generate a new ID and store the full URL
@@ -121,9 +122,9 @@ exports.delete_a_url = function(request, response) {
 url_is_invalid = function(expirationDate, visits) {
     if (visits > 49) return false;
 
-    var formattedDate = new Date(expirationDate);
+    var formattedDate = moment(expirationDate)
 
-    if (formattedDate > Date.now()) return false;
+    if (moment().isAfter(formattedDate)) return false;
 
     return true;
 }
