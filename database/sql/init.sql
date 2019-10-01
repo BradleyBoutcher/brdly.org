@@ -2,8 +2,6 @@ CREATE USER docker;
 CREATE DATABASE docker;
 GRANT ALL PRIVILEGES ON DATABASE docker TO docker;
 
-DROP TABLE IF EXISTS urls;
-
 CREATE TABLE urls (
    id SERIAL UNIQUE NOT NULL PRIMARY KEY,    -- Auto incrementing integer ID
    full_url VARCHAR (150) NOT NULL,           -- Full ID provided by user
