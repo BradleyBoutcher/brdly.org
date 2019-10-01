@@ -1,0 +1,39 @@
+.App {
+  text-align: left;
+  padding-top: 5vh; padding-bottom: 5vh;
+  padding-left: 5vw; padding-right: 5vw;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  border-radius: 10px;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  padding: 30px;
+  color: white;
+}
+
+.checkbox {
+  padding-top: 1.5vh; 
+}
+
+.footer {
+  font-size: calc(1px + 2vmin);
+  padding: 10px;
+}
+
+.label {
+  padding-left: 1.5vw;
+}
+
+.title {
+  padding: 10px;
+}
