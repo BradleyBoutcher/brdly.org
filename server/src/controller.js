@@ -50,7 +50,7 @@ exports.visit_a_url = function(request, response) {
         var decodedID = shortener.convertShortURLtoID(id); 
         URL.updateVisitsById(decodedID, function(error, url) {
             if (error) {
-                response.send(error);
+                response.send({error: true, message: error});
             }
             // No URL found - return 400 error
             else if (!url || url.rows.length === 0) {
@@ -60,15 +60,16 @@ exports.visit_a_url = function(request, response) {
                 var newURL = new URL(url.rows[0]);
 
                 // URL is expired or invalid - remove from database
-                if (url_is_invalid(newURL.expires_on, newURL.visits)) {
+                if (this.url_is_invalid(newURL.expires_on, newURL.visits)) {
                     URL.remove(decodedID, function(error, result) {
                         if (error) {
                             throw new Error(error);
                         }
                         response.status(400).send({ error: true, message: 'Invalid or expired URL.' });
                     })
+                } else {
+                    response.json({error: false, full_url: newURL.full_url });
                 }
-                response.json({error: false, full_url: newURL.full_url });
             }
         });
     }
@@ -120,11 +121,15 @@ exports.delete_a_url = function(request, response) {
  * @returns A boolean, true meaning that the URL is valid. False meaning it needs to be removed.
  */
 url_is_invalid = function(expirationDate, visits) {
-    if (visits > 49) return false;
+    if (visits > 49) {
+        return true;
+    }
 
-    var formattedDate = moment(expirationDate)
+    var now = moment().format("YYYY-MM-DD");
 
-    if (moment().isAfter(formattedDate)) return false;
-
-    return true;
+    if (moment(expirationDate).isBefore(now)) {
+        console.log("oopsie")
+        return true;
+    }
+    return false;
 }

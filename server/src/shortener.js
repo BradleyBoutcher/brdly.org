@@ -19,7 +19,7 @@ module.exports = {
         // Convert integer ID to a base 62 number
         while (n > 0) {
             shortURL += charMap[n % 62];
-            n = Math.round(n / 62);
+            n = Math.floor(n / 62);
             if (n === 1) n = 0;
         }
         return shortURL;
@@ -42,7 +42,6 @@ module.exports = {
                 id = id * 62 + shortURL.charCodeAt(i) - '0'.charCodeAt() + 52;   
             }
         }
-
         return id;
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
-import Moment from 'moment';
+import moment from 'moment';
 import './App.css';
 
 class App extends React.Component {
@@ -119,7 +119,9 @@ class App extends React.Component {
     /**
      * @description Send a PUT request to create an entry for a new URL
      */
-    submit = () => {
+    submit = (e) => {
+        e.preventDefault();
+
         const that = this;
 
         let {input} = that.state;
@@ -141,7 +143,7 @@ class App extends React.Component {
             },
             body: JSON.stringify({
                 full_url: that.state.input,
-                expiration: Moment().add(7, 'days').fromNow(),
+                expiration: moment().add(7, 'days').format("YYYY-MM-DD").toString(),
             }),
         })
         // PARSE
@@ -182,10 +184,6 @@ class App extends React.Component {
         
         this.setState({ [e.target.name]: e.target.value});
     }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-    };
 
     /**
      * @description Render our main page, and determine what types of alerts to show.
@@ -260,7 +258,7 @@ class App extends React.Component {
                     <Form
                         noValidate 
                         validated={valid}
-                        onSubmit = {this.handleSubmit}
+                        onSubmit = {this.submit}
                     >
                         <Form.Group>
                             <Form.Label>Enter a link, any link. </Form.Label>

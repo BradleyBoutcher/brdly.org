@@ -17,13 +17,14 @@ app.use(
 )
 
 app.use(function(req, res, next) {
-    const origin = req.get('origin');
+  const origin = req.get('origin');
 
   // TODO Add origin validation
   res.header('Access-Control-Allow-Origin', origin);
-  res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'POST, PUT, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control, Pragma');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Cache-Control, Pragma');
+
+  next();
 });
 
 // Basic test case
