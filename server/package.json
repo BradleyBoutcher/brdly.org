@@ -1,0 +1,27 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "A RESTful API for generating and retrieving shortened URLs.",
+  "main": "./src/server.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon --inspect=0.0.0.0 ./src/server.js",
+    "start:prod": "node ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "url-shortener"
+  },
+  "author": "Bradley Boutcher",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "node-postgres": "0.0.1",
+    "pg": "^7.12.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}

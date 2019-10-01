@@ -1,0 +1,39 @@
+version: '3.5'
+
+services:
+  pg:
+    container_name: postgres_local
+    build: 
+      context: ./database
+      dockerfile: Dockerfile
+    ports:
+      - 5432:5432
+
+  server:
+    container_name: express
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    links: 
+      - pg
+    depends_on: 
+      - pg
+    environment: 
+      DATABASE_URL: postgres://server:password@pg:5432/postgres
+      DB_HOST: pg
+    expose:
+      - ${APP_SERVER_PORT}
+    ports:
+      - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
+  
+  client:
+    container_name: react
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - ${REACT_APP_PORT}:80
+    links: 
+      - server
+    depends_on:
+      - server
