@@ -121,15 +121,19 @@ exports.delete_a_url = function(request, response) {
  * @returns A boolean, true meaning that the URL is valid. False meaning it needs to be removed.
  */
 url_is_invalid = function(expirationDate, visits) {
+
+    // Check if we've reached the max amount of visits
     if (visits > 49) {
         return true;
     }
 
+    // Retrieve current datetime
     var now = moment().format("YYYY-MM-DD");
 
+    // Check if current time is after expiration
     if (moment(expirationDate).isBefore(now)) {
-        console.log("oopsie")
         return true;
     }
+
     return false;
 }
