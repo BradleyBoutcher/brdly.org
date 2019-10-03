@@ -1,7 +1,6 @@
 var bodyParser = require('body-parser');
 var createError = require('http-errors');
 var express = require('express');
-var forceSSL = require('force-ssl');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -16,7 +15,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(forceSSL);
 
 // Import and Register our Routes
 var routes = require('./src/routes');
