@@ -40,4 +40,4 @@ services:
       - ${APP_SERVER_PORT}
     ports:
       - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
-      - "444:443"
+      - "4444:443"
