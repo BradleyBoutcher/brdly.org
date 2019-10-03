@@ -25,7 +25,6 @@
     "pg": "^7.12.1"
   },
   "devDependencies": {
-    "express-force-ssl": "^0.3.2",
     "nodemon": "^1.19.2"
   }
 }
