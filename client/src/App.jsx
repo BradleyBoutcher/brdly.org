@@ -65,7 +65,7 @@ class App extends React.Component {
      */
     getFullURL = (id) => {
         const that = this;
-        fetch('http://localhost:8000/api/', {
+        fetch('https://localhost:443/api/', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -79,7 +79,6 @@ class App extends React.Component {
         .then(function(data) {
             // ERROR
             if (data.error || !data.full_url) {
-                console.log(data.message);
                 that.setState({
                     error: data.message,
                 })
@@ -136,7 +135,7 @@ class App extends React.Component {
             return;
         }
 
-        fetch('http://localhost:8000/api/', {
+        fetch('https://localhost:443/api/', {
             method: 'put',
             headers: {
                 'Content-Type': 'application/json'
@@ -151,7 +150,6 @@ class App extends React.Component {
         .then(function(data) {
             // ERROR
             if (data.error || !data.short_url) {
-                console.log(data.message);
                 that.setState({
                     error: data.message,
                 })
@@ -161,9 +159,9 @@ class App extends React.Component {
                 })
             }
         }).catch(
-            error => {
-                console.log(error)
-            }
+            that.setState({
+                error: "There was an error processing your request.",
+            })
         ).finally(
             that.setState({
                 loading: false,
