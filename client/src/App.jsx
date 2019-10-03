@@ -65,7 +65,7 @@ class App extends React.Component {
      */
     getFullURL = (id) => {
         const that = this;
-        fetch('https://localhost:4444', {
+        fetch('https://localhost:4444/api', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ class App extends React.Component {
             return;
         }
 
-        fetch('https://localhost:4444', {
+        fetch('https://localhost:4444/api', {
             method: 'put',
             headers: {
                 'Content-Type': 'application/json'
