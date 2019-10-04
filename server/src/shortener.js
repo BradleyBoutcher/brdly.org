@@ -16,7 +16,7 @@ module.exports = {
      * 
      * Note: We do not detect if the URL *works*, only if it contains characters that are unsafe.
      */
-    isSafeURL = (url) => {
+    isSafeURL: function (url) {
         var subject = String(url);
 
         if (subject === "") return false;
