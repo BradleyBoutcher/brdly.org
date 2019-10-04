@@ -42,4 +42,5 @@ Feel free to contact me directly or submit an issue!
 - Lock API behind host
 - Validate URL existence outside of domain
 - Offer a selection of expiration time lengths (1 hr, 1 day, etc.)
+- Add resource locking to database level to avoid race conditions
 
