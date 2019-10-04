@@ -18,6 +18,8 @@ exports.create_a_url = function(request, response) {
     // No URL passed in - throw an error 
     if(!new_url) {
         response.status(400).send({ error:true, message: 'Please provide a complete URL.' });
+    } else if(!shortener.isSafeURL(new_url)) {
+        response.status(400).send({ error:true, message: 'Please provide a safe URL.' });
     } else {
         // Make sure it has the correct prefix
         if (!new_url.includes("http://") && !new_url.includes("http://")) new_url = "http://" + new_url;

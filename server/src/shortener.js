@@ -9,6 +9,29 @@
  */ 
 
 module.exports = {
+        /**
+     * @description Validate submitted url to check for unsafe characters
+     * @see https://perishablepress.com/stop-using-unsafe-characters-in-urls/
+     * @returns boolean representing validity
+     * 
+     * Note: We do not detect if the URL *works*, only if it contains characters that are unsafe.
+     */
+    isSafeURL = (url) => {
+        var subject = String(url);
+
+        if (subject === "") return false;
+        
+        // eslint-disable-next-line
+        var invalidCharacters = "\"<>#%{}|\ \\^~[]\`".split("");
+        
+        for (var c of invalidCharacters) {
+            if (subject.includes(c)) {
+                return false;
+            }
+        }
+        return true;
+    },
+
     convertIDtoShortURL: function (n) {
         // Character array too store the 62 possible characters in a url
         var charMap = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");

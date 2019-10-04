@@ -7,16 +7,23 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
+        // If we're running in production, use the production API URL
+        let host = process.env.NODE_ENV === "production"
+            ? 'https://brdly.org/api'
+            : 'http://localhost:8000/api'
+
         this.state = {
             fullURL: "",               // Website to redirect to
+            host: host,                // Server host 
             input: "",                 // Input from text box
             shortURL: "",              // Host URL with base 64 encoded suffix  
-            error: "",
-            loading: false,
-            valid: false,
+            error: "",                 // Error recieved from server
+            loading: false,            // Loading state for submission
+            valid: false,              // URL-To-Submit validity
         }
 
-        this.getFullURL.bind(this);
+        console.log(host);
+        console.log(process.env.NODE_ENV)
     }
 
     /**
@@ -65,7 +72,7 @@ class App extends React.Component {
      */
     getFullURL = (id) => {
         const that = this;
-        fetch('https://localhost:4444/api', {
+        fetch(that.state.host, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -83,7 +90,7 @@ class App extends React.Component {
                     error: data.message,
                 })
             } else {
-                // SUCCESS
+                // SUCCESS - We retrieved the full URL
                 that.setState({
                     fullURL: data.full_url,
                 })
@@ -117,6 +124,7 @@ class App extends React.Component {
 
     /**
      * @description Send a PUT request to create an entry for a new URL
+     * @param e: Submission event; we will supress page reloads 
      */
     submit = (e) => {
         e.preventDefault();
@@ -127,6 +135,7 @@ class App extends React.Component {
 
         that.setState({loading: true,})
         
+        // Double-check if the URL contains unsafe characters to prevent submission
         if (!this.isSafeURL(input) || input === "") {
             that.setState({
                 error: "URL contains invalid characters, please try again.",
@@ -135,7 +144,7 @@ class App extends React.Component {
             return;
         }
 
-        fetch('https://localhost:4444/api', {
+        fetch(that.state.host, {
             method: 'put',
             headers: {
                 'Content-Type': 'application/json'
@@ -148,11 +157,12 @@ class App extends React.Component {
         // PARSE
         .then(res => res.json())
         .then(function(data) {
-            // ERROR
+            // ERROR - Add Error Message to State
             if (data.error || !data.short_url) {
                 that.setState({
                     error: data.message,
                 })
+            // SUCCESS - Update State with shortened URL
             } else {
                 that.setState({
                     shortURL: data.short_url,
@@ -180,18 +190,19 @@ class App extends React.Component {
             valid: this.isSafeURL(e.target.value)
         })
         
-        this.setState({ [e.target.name]: e.target.value});
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     /**
      * @description Render our main page, and determine what types of alerts to show.
+     * @returns The main application with relevent alerts generated in advance
      */
     render = () => {
         let { input, loading, error, shortURL, valid,} = this.state;
         let alert;
         let loadingComponent;
 
-        // ERROR
+        // ERROR Alert
         if (error !== "") {
             alert = 
                 <Alert key={'alert'} variant={'warning'}>
@@ -215,7 +226,7 @@ class App extends React.Component {
                 </Alert>;
         }
 
-        // SUCCESS
+        // SUCCESS Alert
         if (shortURL !== "") {
             alert = 
                 <Alert show={true} variant="success">
@@ -247,7 +258,7 @@ class App extends React.Component {
                     Submit
                 </div>
         }
-
+        // RETURN Our App
         return (
             <div className="App">
                 {alert}
