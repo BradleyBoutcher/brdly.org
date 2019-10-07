@@ -9,7 +9,7 @@ class App extends React.Component {
 
         // If we're running in production, use the production API URL
         let host = process.env.NODE_ENV === 'production' 
-        ? 'https://127.0.0.1:1000/api/'
+        ? 'https://brdly.org/api'
         : 'http://localhost:8000/api'
 
         this.state = {
