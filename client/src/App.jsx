@@ -8,7 +8,9 @@ class App extends React.Component {
         super(props);
 
         // If we're running in production, use the production API URL
-        let host ='http://localhost:8000/api'
+        let host = process.env.NODE_ENV === 'production' 
+        ? 'https://brdly.org/api/'
+        : 'http://localhost:8000/api'
 
         this.state = {
             fullURL: "",               // Website to redirect to
