@@ -252,7 +252,7 @@ class App extends React.Component {
         } else {
             loadingComponent = 
                 <div>
-                    Submit
+                    Shorten
                 </div>
         }
         // RETURN Our App
