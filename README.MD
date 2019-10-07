@@ -29,7 +29,7 @@ Each component runs in a Docker container, allowing for customization and commun
 
 ### Development
 1. From the 'Database' directory, run:
-```docker build && docker run -p 5432:5432```
+```docker build -t postgres . && docker run -p 127.0.0.1:5432:5432/tcp postgres```
 2. From the 'Client' directory, run:
 ```yarn start```
 3. From the 'Server' directory, run 
@@ -39,8 +39,7 @@ Each component runs in a Docker container, allowing for customization and commun
 Feel free to contact me directly or submit an issue! 
 
 ## Planned features
-- Lock API behind host
+- Lock API behind proxy only accessible by client
 - Validate URL existence outside of domain
 - Offer a selection of expiration time lengths (1 hr, 1 day, etc.)
-- Add resource locking to database level to avoid race conditions
 
