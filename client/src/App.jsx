@@ -8,9 +8,7 @@ class App extends React.Component {
         super(props);
 
         // If we're running in production, use the production API URL
-        let host = process.env.NODE_ENV === "production"
-            ? 'https://brdly.org/api'
-            : 'http://localhost:8000/api'
+        let host ='http://localhost:8000/api'
 
         this.state = {
             fullURL: "",               // Website to redirect to
@@ -21,9 +19,6 @@ class App extends React.Component {
             loading: false,            // Loading state for submission
             valid: false,              // URL-To-Submit validity
         }
-
-        console.log(host);
-        console.log(process.env.NODE_ENV)
     }
 
     /**
@@ -72,6 +67,7 @@ class App extends React.Component {
      */
     getFullURL = (id) => {
         const that = this;
+
         fetch(that.state.host, {
             method: 'post',
             headers: {
@@ -85,7 +81,7 @@ class App extends React.Component {
         .then(res => res.json())
         .then(function(data) {
             // ERROR
-            if (data.error || !data.full_url) {
+            if (data.error === true || !data.full_url) {
                 that.setState({
                     error: data.message,
                 })
@@ -127,7 +123,7 @@ class App extends React.Component {
      * @param e: Submission event; we will supress page reloads 
      */
     submit = (e) => {
-        e.preventDefault();
+        e.preventDefault();         // Prevent default page reload action on submit
 
         const that = this;
 
@@ -158,21 +154,20 @@ class App extends React.Component {
         .then(res => res.json())
         .then(function(data) {
             // ERROR - Add Error Message to State
-            if (data.error || !data.short_url) {
+            if (data.error === true || !data.short_url) {
                 that.setState({
                     error: data.message,
                 })
+
+                console.log('test')
             // SUCCESS - Update State with shortened URL
             } else {
                 that.setState({
                     shortURL: data.short_url,
                 })
+
             }
-        }).catch(
-            that.setState({
-                error: "There was an error processing your request.",
-            })
-        ).finally(
+        }).finally(
             that.setState({
                 loading: false,
             })
@@ -234,7 +229,7 @@ class App extends React.Component {
                     <p>
                         Your shortened link is: 
                         <a href={shortURL}>
-                            <b>{shortURL}</b>
+                            <b>{" " + shortURL}</b>
                         </a>
                     </p>
                     <hr/>

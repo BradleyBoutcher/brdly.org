@@ -29,7 +29,7 @@ exports.create_a_url = function(request, response) {
                 response.status(500).send({ error: true, message: 'Unable to create Shortened URL.' });
             }
             var shortURL = shortener.convertIDtoShortURL(url.rows[0].id) 
-            response.json({error: false, short_url: "https://brdly.org/?" + shortURL});
+            response.json({error: false, short_url: "brdly.org/?" + shortURL});
         });
     }
 };

@@ -34,7 +34,7 @@ services:
     depends_on: 
       - pg
     environment: 
-      DATABASE_URL: postgres://server:password@pg:5432/postgres
+      SSL_PASSPHRASE: ${SSL_PASSPHRASE}
       DB_HOST: pg
     expose:
       - ${APP_SERVER_PORT}

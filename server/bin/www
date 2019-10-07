@@ -16,16 +16,29 @@ var fs  = require('fs');
 var port = normalizePort(process.env.PORT || '8000');
 app.set('port', port);
 
+
 /**
- * Create HTTP server.
+ * Create HTTP & HTTPS server.
  */
-const options = {
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem'),
-  passphrase: 'supercalifragilisticexpialidocious'
-};
+try {
+  const options = {
+    key: fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem'),
+    passphrase: process.env.SSL_PASSPHRASE
+  };
+
+  var serverSSL = https.createServer(options, app);
+
+  serverSSL.listen(443);
+  serverSSL.on('error', onError);
+  serverSSL.on('listening', onListening);
+} catch (error) {
+  console.log(error)
+  
+  console.log("HTTPS not setup. Continue at your own risk.")
+}
+
 var server = http.createServer(app);
-var serverSSL = https.createServer(options, app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -34,9 +47,7 @@ var serverSSL = https.createServer(options, app);
 server.listen(port); 
 server.on('error', onError);
 server.on('listening', onListening);
-serverSSL.listen(443);
-serverSSL.on('error', onError);
-serverSSL.on('listening', onListening);
+
 /**
  * Normalize a port into a number, string, or false.
  */

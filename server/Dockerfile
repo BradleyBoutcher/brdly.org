@@ -12,6 +12,7 @@ RUN apk add --no-cache openssl
 COPY package*.json ./
 
 RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
+    -passout pass:${SSL_PASSPHRASE} \
     -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=localhost" \
     -keyout key.pem  -out cert.pem
 

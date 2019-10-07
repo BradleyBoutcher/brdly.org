@@ -4,7 +4,7 @@ GRANT ALL PRIVILEGES ON DATABASE docker TO docker;
 
 CREATE TABLE urls (
    id SERIAL UNIQUE NOT NULL PRIMARY KEY,    -- Auto incrementing integer ID
-   full_url VARCHAR (150) NOT NULL,           -- Full ID provided by user
+   full_url VARCHAR (150) NOT NULL,          -- Full ID provided by user
    expires_on VARCHAR(12) NOT NULL,          -- Expiration date to be deleted on
    visits INTEGER NOT NULL                   -- Total number of times this link has been visits; capped at 50
 );
