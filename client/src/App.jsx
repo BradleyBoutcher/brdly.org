@@ -230,7 +230,7 @@ class App extends React.Component {
                     <Alert.Heading>Success!</Alert.Heading>
                     <p>
                         Your shortened link is: 
-                        <a href={shortURL}>
+                        <a href={"https://" + shortURL}>
                             <b>{" " + shortURL}</b>
                         </a>
                     </p>
