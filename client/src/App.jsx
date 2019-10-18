@@ -73,7 +73,9 @@ class App extends React.Component {
         fetch(that.state.host, {
             method: 'post',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': 'https://brdly.org',
+                'Access-Control-Allow-Origin': 'https://brdly.org/api'
             },
             body: JSON.stringify({
                 id: id,
@@ -145,7 +147,9 @@ class App extends React.Component {
         fetch(that.state.host, {
             method: 'put',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': 'https://brdly.org',
+                'Access-Control-Allow-Origin': 'https://brdly.org/api'
             },
             body: JSON.stringify({
                 full_url: that.state.input,
