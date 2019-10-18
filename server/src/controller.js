@@ -22,7 +22,7 @@ exports.create_a_url = function(request, response) {
         response.status(400).send({ error:true, message: 'Please provide a safe URL.' });
     } else {
         // Make sure it has the correct prefix
-        if (!new_url.includes("http://") && !new_url.includes("http://")) new_url = "http://" + new_url;
+        if (!new_url.includes("https://") && !new_url.includes("http://")) new_url = "http://" + new_url;
         // Create new entry
         URL.createUrl(new_url, expiration, function(error, url) {
             if (error) {
