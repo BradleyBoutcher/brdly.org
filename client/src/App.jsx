@@ -74,6 +74,7 @@ class App extends React.Component {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': 'Origin',
                 'Access-Control-Allow-Origin': 'https://brdly.org',
                 'Access-Control-Allow-Origin': 'https://brdly.org/api'
             },
@@ -148,6 +149,7 @@ class App extends React.Component {
             method: 'put',
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Headers': 'Origin',
                 'Access-Control-Allow-Origin': 'https://brdly.org',
                 'Access-Control-Allow-Origin': 'https://brdly.org/api'
             },
